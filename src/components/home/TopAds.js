@@ -2,7 +2,7 @@ import React from 'react';
 import TopAd from "./TopAd";
 
 const TopAds = ({topAds, fetchTopAds}) => {
-    if (topAds.shouldFetch) {
+    if (topAds.didInvalidate) {
         fetchTopAds();
     }
     return (

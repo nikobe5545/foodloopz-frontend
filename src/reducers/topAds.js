@@ -4,16 +4,14 @@ export const Actions = {
 };
 
 export const topAds = (state = {
-    shouldFetch: true,
     isFetching: false,
-    didInvalidate: false,
+    didInvalidate: true,
     items: []
 }, action) => {
     switch (action.type) {
         case Actions.PUSH_TOP_ADS:
             console.log('Received data', action)
             return Object.assign({}, state, {
-                shouldFetch: false,
                 isFetching: false,
                 didInvalidate: false,
                 lastUpdated: new Date().getTime(),
@@ -21,7 +19,6 @@ export const topAds = (state = {
             });
         case Actions.FETCH_TOP_ADS:
             return Object.assign({}, state, {
-                shouldFetch: false,
                 isFetching: true,
                 didInvalidate: false,
                 items: []
