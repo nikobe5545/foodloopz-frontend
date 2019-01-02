@@ -3,10 +3,9 @@ import TopAds from "../../containers/home/TopAdsContainer";
 
 const Root = () => {
     return (
-        <div>
-            <p>Top ads right now mate!</p>
+        <React.Fragment>
             <TopAds/>
-        </div>
+        </React.Fragment>
     )
 };
 

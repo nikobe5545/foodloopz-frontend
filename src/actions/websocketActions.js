@@ -1,11 +1,12 @@
 export const MAIN_ENDPOINT = 'ws://' + window.location.host + '/marketplace/api/ws/main';
 export const EVENT_ENDPOINT = 'ws://' + window.location.host + '/marketplace/api/ws/event';
 
-export const sendMessageToMainEndpoint = (type) => {
+export const sendMessageToMainEndpoint = (type, payload) => {
     let action = ({
         type,
         payload: {
-            action: type
+            action: type,
+            payload
         },
         meta: {
             socket: MAIN_ENDPOINT,

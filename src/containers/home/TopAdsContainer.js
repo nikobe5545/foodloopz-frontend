@@ -5,14 +5,14 @@ import TopAds from "../../components/home/TopAds";
 
 const mapStateToProps = state => {
     return {
-        topAds: state.topAds
+        topAdsState: state.topAds
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchTopAds: () => {
-            dispatch(sendMessageToMainEndpoint(Actions.FETCH_TOP_ADS));
+            dispatch(sendMessageToMainEndpoint(Actions.FETCH_TOP_ADS, null));
         }
     }
 };

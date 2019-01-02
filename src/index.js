@@ -1,3 +1,7 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import React from 'react';
 import {render} from 'react-dom';
 import './index.css';
@@ -8,6 +12,7 @@ import rootReducer from './reducers';
 import createWebsocketMiddleware, {JSONCodec} from "./middleware/redux-websocket-middleware";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Root from "./components/home/Root";
+import CreateUpdateContainer from "./containers/ads/CreateUpdateContainer";
 
 const store = createStore(
     rootReducer,
@@ -16,11 +21,12 @@ const store = createStore(
     }))
 );
 
-//<Route path="/about" component={}/>
 render(
     <Provider store={store}>
         <Router>
             <Switch>
+                <Route path="/ad/view/:id?" component={CreateUpdateContainer}/>
+                <Route path="/ad/edit/:id?" component={CreateUpdateContainer}/>
                 <Route path="/" component={Root}/>
             </Switch>
         </Router>

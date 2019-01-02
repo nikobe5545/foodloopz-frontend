@@ -1,27 +1,27 @@
 export const Actions = {
-    PUSH_TOP_ADS: 'PUSH_TOP_ADS',
-    FETCH_TOP_ADS: 'FETCH_TOP_ADS'
+    FETCH_AD: 'FETCH_AD',
+    PUSH_AD: 'PUSH_AD'
 };
 
-export const topAds = (state = {
+export const ad = (state = {
     isFetching: false,
     didInvalidate: true,
-    items: []
+    item: {}
 }, action) => {
     switch (action.type) {
-        case Actions.PUSH_TOP_ADS:
+        case Actions.PUSH_AD:
             console.log('Received data', action)
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
                 lastUpdated: new Date().getTime(),
-                items: action.payload ? action.payload.payload : []
+                item: action.payload.payload
             });
-        case Actions.FETCH_TOP_ADS:
+        case Actions.FETCH_AD:
             return Object.assign({}, state, {
                 isFetching: true,
                 didInvalidate: false,
-                items: []
+                item: null
             });
         default:
             return state;
