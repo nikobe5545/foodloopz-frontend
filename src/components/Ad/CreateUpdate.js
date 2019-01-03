@@ -3,7 +3,7 @@ import AdForm from "./AdForm";
 
 import {connect} from 'react-redux';
 import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
-import {Actions} from "./ad-reducer";
+import {AdActions} from "./ad-reducer";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAd: (payload) => {
-            dispatch(sendMessageToMainEndpoint(Actions.FETCH_AD, payload));
+            dispatch(sendMessageToMainEndpoint(AdActions.FETCH_AD, payload));
         }
     }
 };

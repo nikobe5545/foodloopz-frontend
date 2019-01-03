@@ -6,14 +6,14 @@ export const ActionTypes = {
     UNKNOWN_ACTION: '@@redux-websocket/RECEIVED_WEBSOCKET_DATA'
 }
 
-export function createConnectionAction(endpoint) {
+export function defaultCreateConnectionAction(endpoint) {
     return {
         type: ActionTypes.WEBSOCKET_CONNECTED,
         meta: {socket: endpoint, incoming: true}
     }
 }
 
-export function createDisonnectionAction(endpoint, close) {
+export function defaultCreateDisonnectionAction(endpoint, close) {
     return {
         type: ActionTypes.WEBSOCKET_DISCONNECTED,
         payload: close,
@@ -21,7 +21,7 @@ export function createDisonnectionAction(endpoint, close) {
     }
 }
 
-export function createErrorAction(endpoint, error) {
+export function defaultCreateErrorAction(endpoint, error) {
     return {
         type: ActionTypes.WEBSOCKET_ERROR,
         payload: new Error(error),
@@ -29,10 +29,9 @@ export function createErrorAction(endpoint, error) {
     }
 }
 
-export function createMessageAction(endpoint, data) {
-    const actionType = data.action ? data.action : ActionTypes.UNKNOWN_ACTION;
+export function defaultCreateMessageAction(endpoint, data) {
     return {
-        type: actionType,
+        type: ActionTypes.RECEIVED_WEBSOCKET_DATA,
         payload: data,
         meta: {socket: endpoint, incoming: true}
     }

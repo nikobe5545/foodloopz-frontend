@@ -3,7 +3,7 @@ import TopAd from "./TopAd";
 
 import {connect} from 'react-redux';
 import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
-import {Actions} from "./home-reducer";
+import {TopAdsActions} from "./topads-reducer";
 
 const mapStateToProps = state => {
     return {
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchTopAds: () => {
-            dispatch(sendMessageToMainEndpoint(Actions.FETCH_TOP_ADS, null));
+            dispatch(sendMessageToMainEndpoint(TopAdsActions.FETCH_TOP_ADS, null));
         }
     }
 };

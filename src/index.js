@@ -11,17 +11,19 @@ import createWebsocketMiddleware, {JSONCodec} from "./middleware/redux-websocket
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from "./components/Home/Home";
 import CreateUpdate from "./components/Ad/CreateUpdate";
-import {homeReducer} from "./components/Home/home-reducer";
+import {topAdsReducer} from "./components/Home/topads-reducer";
 import {adReducer} from "./components/Ad/ad-reducer";
+import {createOnMessageAction} from "./actions/websocketActions";
 
 const rootReducer = combineReducers({
-    home: homeReducer,
+    home: topAdsReducer,
     ad: adReducer
 });
 
 const store = createStore(
     rootReducer,
     applyMiddleware(createWebsocketMiddleware({
+        onMessageAction: createOnMessageAction,
         codec: JSONCodec
     }))
 );

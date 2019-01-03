@@ -1,4 +1,9 @@
-import {createConnectionAction, createDisonnectionAction, createErrorAction, createMessageAction} from '../actions'
+import {
+    defaultCreateConnectionAction,
+    defaultCreateDisonnectionAction,
+    defaultCreateErrorAction,
+    defaultCreateMessageAction
+} from '../actions'
 
 import {Connection, MessageQueue} from './'
 
@@ -7,6 +12,14 @@ export default class ConnectionManager {
         this.store = store
         this.options = options
         this.storage = {}
+        this.onOpenAction = options.onOpenAction ?
+            options.onOpenAction : defaultCreateConnectionAction;
+        this.onMessageAction = options.onMessageAction ?
+            options.onMessageAction : defaultCreateMessageAction;
+        this.onCloseAction = options.onCloseAction ?
+            options.onCloseAction : defaultCreateDisonnectionAction;
+        this.onErrorAction = options.onErrorAction ?
+            options.onErrorAction : defaultCreateErrorAction;
 
         if (this.options.defaultEndpoint) {
             this.add(this.options.defaultEndpoint)
@@ -22,16 +35,16 @@ export default class ConnectionManager {
             reconnectCallback
         ).subscribe({
             onOpen: () => {
-                this.store.dispatch(createConnectionAction(endpoint))
+                this.store.dispatch(this.onOpenAction(endpoint))
             },
             onMessage: data => {
-                this.store.dispatch(createMessageAction(endpoint, data))
+                this.store.dispatch(this.onMessageAction(endpoint, data))
             },
             onClose: close => {
-                this.store.dispatch(createDisonnectionAction(endpoint, close))
+                this.store.dispatch(this.onCloseAction(endpoint, close))
             },
             onError: error => {
-                this.store.dispatch(createErrorAction(endpoint, error))
+                this.store.dispatch(this.onErrorAction(endpoint, error))
             }
         })
 
