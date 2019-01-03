@@ -1,7 +1,7 @@
 import React from 'react';
-import TopAds from "../../containers/home/TopAdsContainer";
+import TopAds from './TopAds';
 
-const Root = () => {
+const Home = () => {
     return (
         <React.Fragment>
             <TopAds/>
@@ -9,4 +9,4 @@ const Root = () => {
     )
 };
 
-export default Root;
+export default Home;

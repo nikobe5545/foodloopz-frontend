@@ -9,7 +9,7 @@ const AdForm = ({ad = {}}) => {
             <ImageUploadWidget/>
             <div className="form-group">
                 <label htmlFor="product">Product name</label>
-                <input type="product" className="form-control" id="product" aria-describedby="productHelp"
+                <input type="text" className="form-control" id="product" aria-describedby="productHelp"
                        placeholder="Enter product name" value={ad != null ? ad.product : ""}/>
                 <small id="productHelp" className="form-text text-muted">
                     The name of the product
