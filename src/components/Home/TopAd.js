@@ -1,22 +1,19 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const TopAd = ({topAd}) => {
+const TopAd = ({topAd, active}) => {
     console.log('TopAd', topAd);
     return (
-        <div className="card bg-light">
-            <div className="card-body">
-                <h5 className="card-title">{topAd.product}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{topAd.organization.name}</h6>
-                <p className="card-text">{topAd.text}</p>
-                <Link to={`/ad/view/${topAd.id}`} className="card-link">
-                    View ad
-                </Link>
-                <Link to={`/ad/edit/${topAd.id}`} className="card-link">
-                    Edit ad
-                </Link>
-            </div>
+        <div className={active ? "carousel-item active" : "carousel-item"}>
+            <Link to={`/ad/view/${topAd.id}`}>
+                <img src={topAd.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + topAd.image) : ""} alt="Blah!"/>
+                <div className="carousel-caption d-none d-md-block">
+                    <h5>{topAd.product}</h5>
+                    <p>{topAd.text}</p>
+                </div>
+            </Link>
         </div>
+
     );
 };
 

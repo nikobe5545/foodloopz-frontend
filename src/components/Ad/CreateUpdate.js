@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import AdForm from "./AdForm";
+import Header from "../Header/Header"
 
 import {connect} from 'react-redux';
 import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
@@ -36,13 +37,16 @@ export default connect(
 
     render() {
         return (
-            <div>
-                {this.props.adState.ad.isFetching &&
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>}
-                {this.props.adState.ad.item && <AdForm ad={this.props.adState.ad.item}/>}
-            </div>
+            <React.Fragment>
+                <Header/>
+                <div className="container bg-light w-auto px-md-3 py-md-3">
+                    {this.props.adState.ad.isFetching &&
+                    <div className="spinner-grow" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>}
+                    {this.props.adState.ad.item && <AdForm ad={this.props.adState.ad.item}/>}
+                </div>
+            </React.Fragment>
         );
     }
 });

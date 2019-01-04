@@ -33,12 +33,20 @@ export default connect(
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
+            <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+                <div className="carousel-inner">
                     {this.props.topAds.items.map((topAd, index) => (
-                        <TopAd key={index} topAd={topAd}/>
+                        <TopAd key={index} topAd={topAd} active={index === 0 ? 'active' : ''}/>
                     ))}
                 </div>
+                <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"/>
+                    <span className="sr-only">Previous</span>
+                </a>
+                <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"/>
+                    <span className="sr-only">Next</span>
+                </a>
             </div>
         );
     }
