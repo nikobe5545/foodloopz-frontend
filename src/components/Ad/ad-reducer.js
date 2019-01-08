@@ -1,32 +1,28 @@
-export const AdActions = {
-    FETCH_AD: 'AD',
-    RECEIVE_AD_SUCCESS: 'RECEIVE_AD_SUCCESS',
-    RECEIVE_AD_FAIL: 'RECEIVE_AD_FAIL'
-};
+import {AdActions} from "./ad-actions";
 
 export const adReducer = (state = {
     isFetching: false,
     didInvalidate: true,
-    item: {}
+    item: null
 }, action) => {
     switch (action.type) {
-        case AdActions.RECEIVE_AD_SUCCESS:
+        case AdActions.FETCH_AD_SUCCESS:
             console.log('Received data', action)
             return {
                 ...state,
                 isFetching: false,
                 didInvalidate: false,
                 lastUpdated: new Date().getTime(),
-                item: action.payload.payload
+                item: action.data
             };
-        case AdActions.RECEIVE_AD_FAIL:
+        case AdActions.FETCH_AD_FAIL:
             console.log('Fetch ad failed. Data = ', action);
             return {
                 ...state,
                 isFetching: false,
                 didInvalidate: false,
                 item: null,
-                errorMessage: action.payload.statusMessage
+                errorMessage: action.errorMessage
             }
         case AdActions.FETCH_AD:
             return {

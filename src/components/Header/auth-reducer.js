@@ -8,7 +8,6 @@ export const AuthActions = {
 export const authReducer = (state = {
     isFetching: false,
     hasLoadedSessionStorage: false,
-    isAuthenticated: false,
     promptLogin: true,
     email: ''
 }, action) => {
@@ -16,22 +15,20 @@ export const authReducer = (state = {
         case AuthActions.LOGIN_REQUEST:
             return {
                 ...state,
-                isFetching: true,
-                isAuthenticated: false
+                isFetching: true
             };
         case AuthActions.LOGIN_SUCCESS:
             return {
                 ...state,
+                ...action.payload,
                 isFetching: false,
-                isAuthenticated: true,
-                promptLogin: false,
-                email: action.email
+                promptLogin: false
             };
         case AuthActions.LOGIN_FAILURE:
             return {
                 ...state,
+                ...action.payload,
                 isFetching: false,
-                isAuthenticated: false,
                 errorMessage: action.errorMessage
             };
         default:

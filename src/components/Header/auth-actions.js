@@ -1,45 +1,48 @@
-import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
 import {AuthActions} from "./auth-reducer";
+import $ from "jquery";
 
-export const loginUser = (credentials) => {
-    return (dispatch) => {
-        // We dispatch requestLogin to kickoff the call to the API
-        dispatch(sendMessageToMainEndpoint(AuthActions.LOGIN_REQUEST, ));
-        return axios.post(process.env.apiBaseUrl + '/login', creds)
-            .then(response => {
+export function loginUser(creds) {
+    return (dispatch, getStore) => {
+        dispatch(requestLogin());
+        $.ajax({
+            url: '/marketplace/api/rest/auth/login',
+            type: 'POST',
+            dataType: 'json',
+            data: creds,
+            done: (response) => {
                 dispatch({
-                        type: 'LOGIN_SUCCESS',
+                        type: AuthActions.LOGIN_SUCCESS,
                         token: response.data.token,
                         email: creds.email,
                         storeOwnerId: response.data.storeOwnerId,
                         admin: response.data.admin
                     }
-                )
-                dispatch(hideTint())
-                dispatch(initArticles())
-            }).catch((error) => {
+                );
+            },
+            fail: (xhr, status, error) => {
                 if (error.response && error.response.status === 401) {
-                    dispatch(loginError(i18n.errors.login.auth))
+                    dispatch(loginError('User not authenticated'))
                 } else {
-                    dispatch(loginError(i18n.errors.login.general))
+                    dispatch(loginError('Some error'))
                 }
-            })
-    }
-};
-
-export function logoutUser () {
-    return dispatch => {
-        dispatch({ type: 'LOGOUT_SUCCESS' })
+            }
+        });
     }
 }
 
-export function loginError (errorMessage) {
+export function logoutUser() {
+    return dispatch => {
+        dispatch({type: 'LOGOUT_SUCCESS'})
+    }
+}
+
+export function loginError(errorMessage) {
     return {
         type: 'LOGIN_FAILURE',
         errorMessage
     }
 }
 
-function requestLogin () {
-    return { type: 'LOGIN_REQUEST' }
+function requestLogin() {
+    return {type: 'LOGIN_REQUEST'}
 }

@@ -1,8 +1,4 @@
-export const TopAdsActions = {
-    FETCH_TOP_ADS: 'TOP_ADS',
-    RECEIVE_TOP_ADS_SUCCESS: 'RECEIVE_TOP_ADS_SUCCESS',
-    RECEIVE_TOP_ADS_FAIL: 'RECEIVE_TOP_ADS_FAIL'
-};
+import {TopAdsActions} from "./topads-actions";
 
 export const topAdsReducer = (state = {
     topAds: {
@@ -12,7 +8,7 @@ export const topAdsReducer = (state = {
     }
 }, action) => {
     switch (action.type) {
-        case TopAdsActions.RECEIVE_TOP_ADS_SUCCESS:
+        case TopAdsActions.FETCH_TOP_ADS_SUCCESS:
             console.log('Received data', action)
             return {
                 ...state,
@@ -20,10 +16,10 @@ export const topAdsReducer = (state = {
                     isFetching: false,
                     didInvalidate: false,
                     lastUpdated: new Date().getTime(),
-                    items: action.payload ? action.payload.payload : []
+                    items: action.data ? action.data : []
                 }
             };
-        case TopAdsActions.RECEIVE_TOP_ADS_FAIL:
+        case TopAdsActions.FETCH_TOP_ADS_FAIL:
             console.warn('Failed to receive top ads. Action = ', action)
             return {
                 ...state,
@@ -31,7 +27,7 @@ export const topAdsReducer = (state = {
                     isFetching: false,
                     didInvalidate: false,
                     items: [],
-                    errorMessage: action.payload.statusMessage
+                    errorMessage: action.errorMessage + action.error
                 }
             };
         case TopAdsActions.FETCH_TOP_ADS:

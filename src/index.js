@@ -14,15 +14,20 @@ import CreateUpdate from "./components/Ad/CreateUpdate";
 import {topAdsReducer} from "./components/Home/topads-reducer";
 import {adReducer} from "./components/Ad/ad-reducer";
 import {createOnMessageAction} from "./actions/websocketActions";
+import {authReducer} from "./components/Header/auth-reducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
     home: topAdsReducer,
-    ad: adReducer
+    ad: adReducer,
+    auth: authReducer
 });
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(createWebsocketMiddleware({
+    {},
+    applyMiddleware(thunk,
+        createWebsocketMiddleware({
         onMessageAction: createOnMessageAction,
         codec: JSONCodec
     }))

@@ -3,24 +3,18 @@ import AdForm from "./AdForm";
 import Header from "../Header/Header"
 
 import {connect} from 'react-redux';
-import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
 import {AdActions} from "./ad-reducer";
+import {fetchAd} from "./ad-actions";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        adState: {
-            ad: state.ad,
-            adId: ownProps.match.params.id
-        }
+        id: ownProps.match.params.id,
+        ad: state.ad
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchAd: (payload) => {
-            dispatch(sendMessageToMainEndpoint(AdActions.FETCH_AD, payload));
-        }
-    }
+const mapDispatchToProps = {
+    fetchAd
 };
 
 export default connect(
@@ -30,21 +24,20 @@ export default connect(
 
     constructor(props) {
         super(props);
-        this.props.fetchAd({
-            adId: this.props.adState.adId
-        });
+        this.props.fetchAd(this.props.id);
     }
 
     render() {
+        console.log("this.props.ad.item", this.props.ad.item)
         return (
             <React.Fragment>
                 <Header/>
                 <div className="container bg-light w-auto px-md-3 py-md-3">
-                    {this.props.adState.ad.isFetching &&
+                    {this.props.ad.isFetching &&
                     <div className="spinner-grow" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>}
-                    {this.props.adState.ad.item && <AdForm ad={this.props.adState.ad.item}/>}
+                    {this.props.ad.item && <AdForm ad={this.props.ad.item}/>}
                 </div>
             </React.Fragment>
         );

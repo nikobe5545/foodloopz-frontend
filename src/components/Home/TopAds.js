@@ -2,8 +2,7 @@ import React from 'react';
 import TopAd from "./TopAd";
 
 import {connect} from 'react-redux';
-import {sendMessageToMainEndpoint} from "../../actions/websocketActions";
-import {TopAdsActions} from "./topads-reducer";
+import {fetchTopAds} from "./topads-actions";
 
 const mapStateToProps = state => {
     return {
@@ -11,12 +10,8 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchTopAds: () => {
-            dispatch(sendMessageToMainEndpoint(TopAdsActions.FETCH_TOP_ADS, null));
-        }
-    }
+const mapDispatchToProps = {
+    fetchTopAds
 };
 
 export default connect(
@@ -27,6 +22,7 @@ export default connect(
     constructor(props) {
         super(props);
         if (this.props.topAds.didInvalidate) {
+            console.log('Fetching top ads, inside component. Props', this.props);
             this.props.fetchTopAds();
         }
     }
