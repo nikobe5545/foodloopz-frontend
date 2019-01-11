@@ -13,14 +13,18 @@ import Home from "./components/Home/Home";
 import CreateUpdate from "./components/Ad/CreateUpdate";
 import {topAdsReducer} from "./components/Home/topads-reducer";
 import {adReducer} from "./components/Ad/ad-reducer";
-import {createOnMessageAction} from "./actions/websocketActions";
+import {createOnMessageAction} from "./common/websocketActions";
 import {authReducer} from "./components/Header/auth-reducer";
 import thunk from "redux-thunk";
+import {adCategoriesReducer} from "./common/ad-category-reducer";
+import {adCertificationReducer} from "./common/ad-certification-reducer";
 
 const rootReducer = combineReducers({
     home: topAdsReducer,
     ad: adReducer,
-    auth: authReducer
+    auth: authReducer,
+    ad_categories: adCategoriesReducer,
+    ad_certifications: adCertificationReducer
 });
 
 const store = createStore(
