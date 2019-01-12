@@ -1,7 +1,24 @@
 import React from 'react';
 import ImageUploadWidget from "./ImageUploadWidget";
+import {connect} from "react-redux";
+import {postAd} from "./ad-actions";
 
-export default class AdForm extends React.Component {
+const mapStateToProps = (state, ownProps) => {
+    return {
+        ad: state.ad.item,
+        ad_categories: state.ad_categories,
+        ad_certifications: state.ad_certifications
+    };
+};
+
+const mapDispatchToProps = {
+    postAd
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(class AdForm extends React.Component {
     constructor(props) {
         super(props);
         console.log('AdForm this.props', this.props);
@@ -17,7 +34,8 @@ export default class AdForm extends React.Component {
             shipping: props.ad.shipping,
             category: props.ad.category.id,
             organization: props.ad.organization.id,
-            certifications: props.ad.certifications || []
+            certifications: props.ad.certifications || [],
+            certificationIds: props.ad.certifications.map(certification => certification.id).concat() || []
         };
         this.handleInputProduct = this.handleInputProduct.bind(this);
         this.handleInputText = this.handleInputText.bind(this);
@@ -29,43 +47,78 @@ export default class AdForm extends React.Component {
         this.handleInputShipping = this.handleInputShipping.bind(this);
         this.handleInputCategory = this.handleInputCategory.bind(this);
         this.handleInputCertifications = this.handleInputCertifications.bind(this);
+        this.postForm = this.postForm.bind(this);
     }
 
     handleInputProduct(event) {
         this.setState({product: event.target.value})
     }
+
     handleInputText(event) {
         this.setState({text: event.target.value})
     }
+
     handleInputPrice(event) {
         this.setState({price: event.target.value})
     }
+
     handleInputMeasurement(event) {
         this.setState({measurement: event.target.value})
     }
+
     handleInputAmountPerUnit(event) {
         this.setState({amount_per_unit: event.target.value})
     }
+
     handleInputQuantity(event) {
         this.setState({quantity: event.target.value})
     }
+
     handleInputTotalWeight(event) {
         this.setState({total_weight: event.target.value})
     }
+
     handleInputShipping(event) {
         this.setState({shipping: event.target.value})
     }
+
     handleInputCategory(event) {
         this.setState({category: {id: event.target.value}})
     }
+
     handleInputCertifications(event) {
-        console.log(event.target)
-        this.setState({certifications: event.target.value})
+        let result = [];
+        const options = event.target && event.target.options;
+        let opt;
+
+        for (let i = 0, len = options.length; i < len; i++) {
+            opt = options[i];
+
+            if (opt.selected) {
+                result.push(this.props.ad_certifications.items.find(item => item.id === parseInt(opt.value)));
+            }
+        }
+        this.setState({
+            certifications: result,
+            certificationIds: result.map(certification => certification.id).concat() || []
+        })
+    }
+
+    postForm(event) {
+        event.preventDefault();
+        console.log(this.props.postAd);
+        const data = {
+            ...this.state,
+            id: this.props.ad.id
+        };
+        delete data['certificationIds'];
+        console.log(data);
+        this.props.postAd(data);
     }
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.postForm}>
                 <img src={this.props.ad.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.props.ad.image) : ""}
                      className="img-fluid"/>
                 <ImageUploadWidget/>
@@ -114,14 +167,15 @@ export default class AdForm extends React.Component {
                     <div className="form-group col-md-6">
                         <label htmlFor="price">Pris</label>
                         <input type="text" className="form-control" id="price" placeholder="Price per unit"
-                                  onInput={this.handleInputPrice} value={this.state.price}/>
+                               onInput={this.handleInputPrice} value={this.state.price}/>
                         <small id="priceHelp" className="form-text text-muted">
                             The price per unit
                         </small>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="measurement">Enhet</label>
-                        <select className="form-control" value={this.state.measurement} onInput={this.handleInputMeasurement}>
+                        <select className="form-control" value={this.state.measurement}
+                                onInput={this.handleInputMeasurement}>
                             <option value="KILOGRAM">Kg</option>
                             <option value="LITER">Liter</option>
                         </select>
@@ -131,7 +185,8 @@ export default class AdForm extends React.Component {
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="amount-per-measurement">Mängd per förpackingsenhet</label>
-                        <input type="text" className="form-control" id="amount-per-measurement" placeholder="Enter description"
+                        <input type="text" className="form-control" id="amount-per-measurement"
+                               placeholder="Enter description"
                                onInput={this.handleInputAmountPerUnit} value={this.state.amount_per_unit}/>
                         <small id="amountPerMeasurementHelp" className="form-text text-muted">
                             Ange mängd per förpackningsenhet
@@ -149,7 +204,8 @@ export default class AdForm extends React.Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="amount-per-measurement">Total vikt</label>
-                        <input type="text" className="form-control" id="amount-per-measurement" placeholder="Enter total weight"
+                        <input type="text" className="form-control" id="amount-per-measurement"
+                               placeholder="Enter total weight"
                                onInput={this.handleInputTotalWeight} value={this.state.total_weight}/>
                         <small id="amountPerMeasurementHelp" className="form-text text-muted">
                             Ange den totala vikten
@@ -157,7 +213,8 @@ export default class AdForm extends React.Component {
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="quantity">Certifieringar</label>
-                        <select className="form-control" multiple value={this.state.category} onInput={this.handleInputCertifications}>
+                        <select className="form-control" multiple value={this.state.certificationIds}
+                                onInput={this.handleInputCertifications}>
                             {this.props.ad_certifications.items.map((ad_certification, index) => (
                                 <option key={index} value={ad_certification.id}>{ad_certification.name}</option>
                             ))}
@@ -171,4 +228,4 @@ export default class AdForm extends React.Component {
             </form>
         );
     }
-}
+});

@@ -3,7 +3,7 @@ import AdForm from "./AdForm";
 import Header from "../Header/Header"
 
 import {connect} from 'react-redux';
-import {fetchAd} from "./ad-actions";
+import {fetchAd, postAd} from "./ad-actions";
 import {fetchAdCategories} from "../../common/ad-category-actions";
 import {fetchAdCertifications} from "../../common/ad-certification-actions";
 
@@ -20,6 +20,7 @@ const mapDispatchToProps = {
     fetchAd,
     fetchAdCategories,
     fetchAdCertifications,
+    postAd
 };
 
 export default connect(
@@ -44,8 +45,7 @@ export default connect(
                     <div className="spinner-grow" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>}
-                    {this.props.ad.item && <AdForm ad={this.props.ad.item} ad_categories={this.props.ad_categories}
-                                                   ad_certifications={this.props.ad_certifications}/>}
+                    {this.props.ad.item && <AdForm/>}
                 </div>
             </React.Fragment>
         );
