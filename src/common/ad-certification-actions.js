@@ -11,7 +11,7 @@ export function fetchAdCertifications() {
         console.log('Fetch ad categories')
         dispatch(requestAdCertifications());
         $.ajax({
-            url: '/marketplace/api/rest/ad-certifications',
+            url: '/marketplace/api/rest/loop-certifications',
             type: 'GET',
             dataType: 'json'
         })

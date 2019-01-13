@@ -18,6 +18,11 @@ import {authReducer} from "./components/Header/auth-reducer";
 import thunk from "redux-thunk";
 import {adCategoriesReducer} from "./common/ad-category-reducer";
 import {adCertificationReducer} from "./common/ad-certification-reducer";
+import {addCSRFHeader} from "./utils/rest";
+
+$.ajaxSetup({
+    beforeSend: addCSRFHeader
+});
 
 const rootReducer = combineReducers({
     home: topAdsReducer,

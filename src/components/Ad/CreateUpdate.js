@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {fetchAd, postAd} from "./ad-actions";
 import {fetchAdCategories} from "../../common/ad-category-actions";
 import {fetchAdCertifications} from "../../common/ad-certification-actions";
+import BreadcrumbArea from "../Header/BreadcrumbArea";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -40,12 +41,15 @@ export default connect(
         return (
             <React.Fragment>
                 <Header/>
-                <div className="container bg-light w-auto px-md-3 py-md-3">
+                <BreadcrumbArea heading="Skapa en loop" text="Sälj ditt överskott idag"/>
+                <div className="container-fluid pl-0 pr-0 bg-white w-75 px-md-3 py-md-3">
                     {this.props.ad.isFetching &&
                     <div className="spinner-grow" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>}
-                    {this.props.ad.item && <AdForm/>}
+                    <div className="row">
+                        {this.props.ad.item && <AdForm/>}
+                    </div>
                 </div>
             </React.Fragment>
         );

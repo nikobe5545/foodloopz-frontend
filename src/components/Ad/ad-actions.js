@@ -1,4 +1,5 @@
 import $ from "jquery";
+import {addCSRFHeader} from "../../utils/rest";
 
 export const AdActions = {
     FETCH_AD: 'FETCH_AD',
@@ -14,7 +15,7 @@ export function fetchAd(id) {
         console.log('Fetch ad with id ' + id)
         dispatch(requestAd());
         $.ajax({
-            url: '/marketplace/api/rest/ads/' + id,
+            url: '/marketplace/api/rest/loops/' + id,
             type: 'GET',
             dataType: 'json'
         })
@@ -50,7 +51,7 @@ export function postAd(data) {
         console.log('Post ad', data);
         dispatch(requestPostAd(data));
         $.ajax({
-            url: '/marketplace/api/rest/ads/' + data.id + '/',
+            url: '/marketplace/api/rest/loops/' + data.id + '/',
             type: 'POST',
             dataType: 'json',
             data

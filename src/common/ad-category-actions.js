@@ -12,7 +12,7 @@ export function fetchAdCategories() {
         console.log('Fetch ad categories')
         dispatch(requestAdCategories());
         $.ajax({
-            url: '/marketplace/api/rest/ad-categories',
+            url: '/marketplace/api/rest/loop-categories',
             type: 'GET',
             dataType: 'json'
         })

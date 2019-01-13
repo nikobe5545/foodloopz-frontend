@@ -118,114 +118,119 @@ export default connect(
 
     render() {
         return (
-            <form onSubmit={this.postForm}>
-                <img src={this.props.ad.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.props.ad.image) : ""}
-                     className="img-fluid"/>
-                <ImageUploadWidget/>
-                <div className="form-group">
-                    <label htmlFor="product">Produkt</label>
-                    <input type="text" className="form-control" id="product" aria-describedby="productHelp"
-                           placeholder="Enter product name" onInput={this.handleInputProduct}
-                           value={this.state.product}/>
-                    <small id="productHelp" className="form-text text-muted">
-                        The name of the product
-                    </small>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Beskrivning</label>
-                    <textarea className="form-control" id="text" placeholder="Enter description"
-                              onInput={this.handleInputText} value={this.state.text}/>
-                    <small id="textHelp" className="form-text text-muted">
-                        Describe the product with as much details as required
-                    </small>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="category">Kategori</label>
-                        <select className="form-control" value={this.state.category} onInput={this.handleInputCategory}>
-                            {this.props.ad_categories.items.map((ad_category, index) => (
-                                <option key={index} value={ad_category.id}>{ad_category.name}</option>
-                            ))}
-                        </select>
-                        <small id="categoryHelp" className="form-text text-muted">
-                            Ange kategori
+            <div className="col border p-4 justify-content-center bg-light">
+                <form onSubmit={this.postForm}>
+                    <img
+                        src={this.props.ad.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.props.ad.image) : ""}
+                        className="img-fluid"/>
+                    <ImageUploadWidget/>
+                    <div className="form-group">
+                        <label htmlFor="product">Produkt</label>
+                        <input type="text" className="form-control" id="product" aria-describedby="productHelp"
+                               placeholder="Enter product name" onInput={this.handleInputProduct}
+                               value={this.state.product}/>
+                        <small id="productHelp" className="form-text text-muted">
+                            The name of the product
                         </small>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="shipping">Frakt</label>
-                        <select className="form-control" value={this.state.shipping} onInput={this.handleInputShipping}>
-                            <option value="INCLUDED">Inkluderad</option>
-                            <option value="EXCLUDED">Exkluderad</option>
-                            <option value="BY_AGREEMENT">Enligt överenskommelse</option>
-                        </select>
-                        <small id="shippingHelp" className="form-text text-muted">
-                            Ange frakt
+                    <div className="form-group">
+                        <label htmlFor="description">Beskrivning</label>
+                        <textarea className="form-control" id="text" placeholder="Enter description"
+                                  onInput={this.handleInputText} value={this.state.text}/>
+                        <small id="textHelp" className="form-text text-muted">
+                            Describe the product with as much details as required
                         </small>
                     </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="price">Pris</label>
-                        <input type="text" className="form-control" id="price" placeholder="Price per unit"
-                               onInput={this.handleInputPrice} value={this.state.price}/>
-                        <small id="priceHelp" className="form-text text-muted">
-                            The price per unit
-                        </small>
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label htmlFor="category">Kategori</label>
+                            <select className="form-control" value={this.state.category}
+                                    onInput={this.handleInputCategory}>
+                                {this.props.ad_categories.items.map((ad_category, index) => (
+                                    <option key={index} value={ad_category.id}>{ad_category.name}</option>
+                                ))}
+                            </select>
+                            <small id="categoryHelp" className="form-text text-muted">
+                                Ange kategori
+                            </small>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="shipping">Frakt</label>
+                            <select className="form-control" value={this.state.shipping}
+                                    onInput={this.handleInputShipping}>
+                                <option value="INCLUDED">Inkluderad</option>
+                                <option value="EXCLUDED">Exkluderad</option>
+                                <option value="BY_AGREEMENT">Enligt överenskommelse</option>
+                            </select>
+                            <small id="shippingHelp" className="form-text text-muted">
+                                Ange frakt
+                            </small>
+                        </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="measurement">Enhet</label>
-                        <select className="form-control" value={this.state.measurement}
-                                onInput={this.handleInputMeasurement}>
-                            <option value="KILOGRAM">Kg</option>
-                            <option value="LITER">Liter</option>
-                        </select>
-                        <small id="measurementHelp" className="form-text text-muted">
-                            Choose measurement
-                        </small>
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label htmlFor="price">Pris</label>
+                            <input type="text" className="form-control" id="price" placeholder="Price per unit"
+                                   onInput={this.handleInputPrice} value={this.state.price}/>
+                            <small id="priceHelp" className="form-text text-muted">
+                                The price per unit
+                            </small>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="measurement">Enhet</label>
+                            <select className="form-control" value={this.state.measurement}
+                                    onInput={this.handleInputMeasurement}>
+                                <option value="KILOGRAM">Kg</option>
+                                <option value="LITER">Liter</option>
+                            </select>
+                            <small id="measurementHelp" className="form-text text-muted">
+                                Choose measurement
+                            </small>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="amount-per-measurement">Mängd per förpackingsenhet</label>
+                            <input type="text" className="form-control" id="amount-per-measurement"
+                                   placeholder="Enter description"
+                                   onInput={this.handleInputAmountPerUnit} value={this.state.amount_per_unit}/>
+                            <small id="amountPerMeasurementHelp" className="form-text text-muted">
+                                Ange mängd per förpackningsenhet
+                            </small>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="quantity">Kvantitet</label>
+                            <input type="text" className="form-control" id="quantity" placeholder="Enter description"
+                                   onInput={this.handleInputQuantity} value={this.state.quantity}/>
+                            <small id="quantityHelp" className="form-text text-muted">
+                                Ange kvantitet
+                            </small>
+                        </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="amount-per-measurement">Mängd per förpackingsenhet</label>
-                        <input type="text" className="form-control" id="amount-per-measurement"
-                               placeholder="Enter description"
-                               onInput={this.handleInputAmountPerUnit} value={this.state.amount_per_unit}/>
-                        <small id="amountPerMeasurementHelp" className="form-text text-muted">
-                            Ange mängd per förpackningsenhet
-                        </small>
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label htmlFor="amount-per-measurement">Total vikt</label>
+                            <input type="text" className="form-control" id="amount-per-measurement"
+                                   placeholder="Enter total weight"
+                                   onInput={this.handleInputTotalWeight} value={this.state.total_weight}/>
+                            <small id="amountPerMeasurementHelp" className="form-text text-muted">
+                                Ange den totala vikten
+                            </small>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="quantity">Certifieringar</label>
+                            <select className="form-control" multiple value={this.state.certificationIds}
+                                    onInput={this.handleInputCertifications}>
+                                {this.props.ad_certifications.items.map((ad_certification, index) => (
+                                    <option key={index} value={ad_certification.id}>{ad_certification.name}</option>
+                                ))}
+                            </select>
+                            <small id="quantityHelp" className="form-text text-muted">
+                                Ange certifieringar
+                            </small>
+                        </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="quantity">Kvantitet</label>
-                        <input type="text" className="form-control" id="quantity" placeholder="Enter description"
-                               onInput={this.handleInputQuantity} value={this.state.quantity}/>
-                        <small id="quantityHelp" className="form-text text-muted">
-                            Ange kvantitet
-                        </small>
-                    </div>
-                </div>
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="amount-per-measurement">Total vikt</label>
-                        <input type="text" className="form-control" id="amount-per-measurement"
-                               placeholder="Enter total weight"
-                               onInput={this.handleInputTotalWeight} value={this.state.total_weight}/>
-                        <small id="amountPerMeasurementHelp" className="form-text text-muted">
-                            Ange den totala vikten
-                        </small>
-                    </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="quantity">Certifieringar</label>
-                        <select className="form-control" multiple value={this.state.certificationIds}
-                                onInput={this.handleInputCertifications}>
-                            {this.props.ad_certifications.items.map((ad_certification, index) => (
-                                <option key={index} value={ad_certification.id}>{ad_certification.name}</option>
-                            ))}
-                        </select>
-                        <small id="quantityHelp" className="form-text text-muted">
-                            Ange certifieringar
-                        </small>
-                    </div>
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
         );
     }
 });
