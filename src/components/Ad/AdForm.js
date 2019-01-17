@@ -126,10 +126,12 @@ export default connect(
         return (
             <div className="col border p-4 justify-content-center bg-light">
                 <form onSubmit={this.postForm}>
-                    <img
-                        src={this.state.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.state.image) : ""}
-                        className="img-fluid"/>
-                    <ImageUploadWidget callback={this.handleUpdateImage}/>
+                    <div className="form-group">
+                        <img
+                            src={this.state.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.state.image) : ""}
+                            className="img-fluid mx-auto d-block"/>
+                        <ImageUploadWidget callback={this.handleUpdateImage}/>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="product">Produkt</label>
                         <input type="text" className="form-control" id="product" aria-describedby="productHelp"

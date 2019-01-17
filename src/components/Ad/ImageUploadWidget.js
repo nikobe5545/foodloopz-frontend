@@ -36,20 +36,22 @@ class ImageUploadWidget extends React.Component {
 
     render() {
         return (
-            <div className="form-group">
-                <button id="upload_widget" className="cloudinary-button btn btn-success" onClick={(event) => {
-                    event.preventDefault();
-                    window.cloudinary.openUploadWidget({
-                        cloudName: 'dpdy0n2qi',
-                        apiKey: '374716178173586',
-                        cropping: true,
-                        uploadSignature: this.generateSignature,
-                        uploadPreset: 'foodloopz-loop-image',
-                        croppingAspectRatio: 5/4
-                    }, this.resultCallback);
-                }}>{this.props.imageId ? 'Change image' : 'Upload image'}
-                </button>
-            </div>
+
+            <button id="upload_widget" className="cloudinary-button btn btn-success" onClick={(event) => {
+                event.preventDefault();
+                window.cloudinary.openUploadWidget({
+                    cloudName: 'dpdy0n2qi',
+                    apiKey: '374716178173586',
+                    cropping: true,
+                    uploadSignature: this.generateSignature,
+                    uploadPreset: 'foodloopz-loop-image',
+                    croppingAspectRatio: 5 / 4,
+                    maxFileSize: 4000000,
+                    minImageWidth: 500,
+                    minImageHeight: 400
+                }, this.resultCallback);
+            }}>{this.props.imageId ? 'Change image' : 'Upload image'}
+            </button>
         );
     }
 };
