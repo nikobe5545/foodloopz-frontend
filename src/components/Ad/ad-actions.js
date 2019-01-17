@@ -50,9 +50,14 @@ export function postAd(data) {
     return (dispatch, getStore) => {
         console.log('Post ad', data);
         dispatch(requestPostAd(data));
+        const method = data.id ? 'PATCH' : 'POST';
+        let url = '/marketplace/api/rest/loops/';
+        if (data.id) {
+            url = url + data.id + '/';
+        }
         $.ajax({
-            url: '/marketplace/api/rest/loops/' + data.id + '/',
-            type: 'POST',
+            url: url,
+            type: method,
             dataType: 'json',
             data
         })

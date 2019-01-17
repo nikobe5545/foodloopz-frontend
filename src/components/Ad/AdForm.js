@@ -23,6 +23,7 @@ export default connect(
         super(props);
         console.log('AdForm this.props', this.props);
         this.state = {
+            image: props.ad.image,
             product: props.ad.product,
             text: props.ad.text,
             published_date: props.ad.published_date,
@@ -47,6 +48,7 @@ export default connect(
         this.handleInputShipping = this.handleInputShipping.bind(this);
         this.handleInputCategory = this.handleInputCategory.bind(this);
         this.handleInputCertifications = this.handleInputCertifications.bind(this);
+        this.handleUpdateImage = this.handleUpdateImage.bind(this);
         this.postForm = this.postForm.bind(this);
     }
 
@@ -104,6 +106,10 @@ export default connect(
         })
     }
 
+    handleUpdateImage(imageId) {
+        this.setState({image: imageId})
+    }
+
     postForm(event) {
         event.preventDefault();
         console.log(this.props.postAd);
@@ -121,9 +127,9 @@ export default connect(
             <div className="col border p-4 justify-content-center bg-light">
                 <form onSubmit={this.postForm}>
                     <img
-                        src={this.props.ad.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.props.ad.image) : ""}
+                        src={this.state.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.state.image) : ""}
                         className="img-fluid"/>
-                    <ImageUploadWidget/>
+                    <ImageUploadWidget callback={this.handleUpdateImage}/>
                     <div className="form-group">
                         <label htmlFor="product">Produkt</label>
                         <input type="text" className="form-control" id="product" aria-describedby="productHelp"
