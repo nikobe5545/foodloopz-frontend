@@ -2,6 +2,7 @@ import React from 'react';
 import ImageUploadWidget from "./ImageUploadWidget";
 import {connect} from "react-redux";
 import {postAd} from "./ad-actions";
+import * as cloudinary from "cloudinary-core";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -49,7 +50,12 @@ export default connect(
         this.handleInputCategory = this.handleInputCategory.bind(this);
         this.handleInputCertifications = this.handleInputCertifications.bind(this);
         this.handleUpdateImage = this.handleUpdateImage.bind(this);
+        this.getImageUrl = this.getImageUrl.bind(this);
         this.postForm = this.postForm.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({imageUrl: this.getImageUrl()})
     }
 
     handleInputProduct(event) {
@@ -108,6 +114,16 @@ export default connect(
 
     handleUpdateImage(imageId) {
         this.setState({image: imageId})
+        this.setState({imageUrl: this.getImageUrl()})
+    }
+
+    getImageUrl() {
+        const cl = cloudinary.Cloudinary.new({cloud_name: 'dpdy0n2qi'});
+        const url = cl.url(this.state.image, {
+            transformation: 'loop-details'
+        });
+        console.log('URL', url);
+        return url;
     }
 
     postForm(event) {
@@ -127,11 +143,13 @@ export default connect(
             <div className="col border p-4 justify-content-center bg-light">
                 <form onSubmit={this.postForm}>
                     <div className="form-group">
-                        <img
-                            src={this.state.image ? ("https://res.cloudinary.com/dpdy0n2qi/" + this.state.image) : ""}
-                            className="img-fluid mx-auto d-block"/>
-                        <ImageUploadWidget callback={this.handleUpdateImage}/>
+                        {
+                            this.state.imageUrl ?
+                                <img src={this.state.imageUrl} className="img-fluid mx-auto d-block"/> :
+                                ''
+                        }
                     </div>
+                    <ImageUploadWidget callback={this.handleUpdateImage}/>
                     <div className="form-group">
                         <label htmlFor="product">Produkt</label>
                         <input type="text" className="form-control" id="product" aria-describedby="productHelp"
