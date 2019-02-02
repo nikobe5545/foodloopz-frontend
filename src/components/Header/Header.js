@@ -50,61 +50,38 @@ export default connect(
     render() {
         return (
             <header>
-                <div className="container-fluid pl-0 pr-0">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                                <a className="navbar-brand" href="/"><img src="/images/foodloopz_logo.webp" alt="FOODLOOPZ"/></a>
-                                <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">
-                                    <span className="navbar-toggler-icon"/>
-                                </button>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
+                    <a className="navbar-brand" href="/"><img
+                        src="/images/foodloopz_logo.webp"
+                        alt="FOODLOOPZ"/></a>
 
-                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul className="navbar-nav mr-auto">
-                                        <li className="nav-item active">
-                                            <a className="nav-link" href="#">HEM <span className="sr-only">(current)</span></a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#">LÄGG TILL ANNONS</a>
-                                        </li>
-                                    </ul>
-                                    <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
-                                        <li className="nav-item order-2 order-md-1"><a href="#" className="nav-link" title="settings"><i
-                                            className="fa fa-cog fa-fw fa-lg"/></a></li>
-                                        <li className="dropdown order-1">
-                                            <button type="button" id="dropdownMenu1" data-toggle="dropdown"
-                                                    className="btn btn-outline-secondary dropdown-toggle">Login <span
-                                                className="caret"/></button>
-                                            <ul className="dropdown-menu dropdown-menu-right mt-2">
-                                                <li className="px-3 py-2">
-                                                    <form className="form" role="form" onSubmit={this.handleSubmit}>
-                                                        <div className="form-group">
-                                                            <input id="emailInput" placeholder="Email" onInput={this.handleInputEmail}
-                                                                   className="form-control form-control-sm" type="text" required=""/>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <input id="passwordInput" placeholder="Password" onInput={this.handleInputPassword}
-                                                                   className="form-control form-control-sm" type="text" required=""/>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <button type="submit" className="btn btn-primary btn-block">Login</button>
-                                                        </div>
-                                                        <div className="form-group text-center">
-                                                            <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot
-                                                                password?</a></small>
-                                                        </div>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"/>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active pr-3 pt-2">
+                                <a className="nav-link" href="#">MARKNADSPLATS</a>
+                            </li>
+                            <li className="nav-item active pr-3 pt-2">
+                                <a className="nav-link" href="#">OM</a>
+                            </li>
+                            <li className="nav-item active pr-3 pt-2">
+                                <a className="nav-link" href="#">PROJEKT</a>
+                            </li>
+                            <li className="nav-item active pr-3 pt-2">
+                                <a className="nav-link" href="#">NYHETER</a>
+                            </li>
+                        </ul>
+                        <ul className="navbar-nav mr-0 justify-content-end">
+                            <li className="nav-item active pt-2">
+                                <a className="nav-link" href="#">LOGGA IN</a>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
             </header>
         );
     };

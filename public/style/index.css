@@ -1,7 +1,6 @@
 .bg-1 {
-    min-height:100%;
-    background:linear-gradient(0deg,rgba(0,0,0,0.51),rgba(0,0,0,0.51)),url("../images/foodloopz-background.webp");
-    background-size:cover;
+    min-height: 100%;
+    background: linear-gradient(0deg,rgba(0,0,0,0.31),rgba(0,0,0,0.31)),url("../images/foodloopz-background.webp");
 }
 
 .overlay {
@@ -18,9 +17,16 @@
     bottom: 0;
 }
 
-.opacity-50 {
-
+@font-face {
+    font-family: 'Trebuchet';
+    src: url('../fonts/trebuc.ttf') format('truetype');
 }
-.opacity-60 {
 
+.font-trebuchet {
+    font-family: 'Trebuchet', sans-serif;
+}
+
+li.nav-item a {
+    font-family: 'Trebuchet', sans-serif;
+    color: white;
 }

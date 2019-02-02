@@ -31,9 +31,11 @@ export default connect(
         return (
             <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                 <div className="carousel-inner">
-                    {this.props.topAds.items.map((topAd, index) => (
+                    {
+                        this.props.topAds.items.map((topAd, index) => (
                         <TopAd key={index} topAd={topAd} active={index === 0 ? 'active' : ''}/>
-                    ))}
+                    ))
+                    }
                 </div>
                 <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"/>
