@@ -8,25 +8,23 @@ export function loginUser(creds) {
             url: '/marketplace/api/rest/auth/login',
             type: 'POST',
             dataType: 'json',
-            data: creds,
-            done: (response) => {
+            data: JSON.stringify(creds)
+        })
+            .done((payload) => {
+                console.log('LOGIN_SUCCESS', payload);
                 dispatch({
                         type: AuthActions.LOGIN_SUCCESS,
-                        token: response.data.token,
-                        email: creds.email,
-                        storeOwnerId: response.data.storeOwnerId,
-                        admin: response.data.admin
+                        payload
                     }
                 );
-            },
-            fail: (xhr, status, error) => {
-                if (error.response && error.response.status === 401) {
+            })
+            .fail((xhr, status, error) => {
+                if (error.response && error.response.status === 403) {
                     dispatch(loginError('User not authenticated'))
                 } else {
                     dispatch(loginError('Some error'))
                 }
-            }
-        });
+            });
     }
 }
 

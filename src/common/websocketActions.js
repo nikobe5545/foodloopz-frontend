@@ -1,4 +1,4 @@
-import {AuthActions} from "../components/Header/auth-reducer";
+import {AuthActions} from "../components/Auth/auth-reducer";
 
 export const MAIN_ENDPOINT = 'ws://' + window.location.host + '/marketplace/api/ws/main';
 export const EVENT_ENDPOINT = 'ws://' + window.location.host + '/marketplace/api/ws/event';

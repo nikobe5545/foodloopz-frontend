@@ -56,7 +56,7 @@ const Footer = () => {
                         <p className="font-trebuchet text-white">&copy; Foodloopz Sweden AB 2019</p>
                     </div>
                     <div className="col-4">
-                        <p className="font-trebuchet text-white§">Stolta medlemmar i Klimatpakten PLUS</p>
+                        <p className="font-trebuchet text-white">Stolta medlemmar i Klimatpakten PLUS</p>
                     </div>
                 </div>
             </div>

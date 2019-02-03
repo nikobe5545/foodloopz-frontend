@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {loginError, loginUser} from "./auth-actions";
+import {loginError, loginUser} from "../Auth/auth-actions";
+import Auth from "../Auth/Auth";
 
 
 const mapStateToProps = (state) => {
@@ -77,7 +78,8 @@ export default connect(
                         </ul>
                         <ul className="navbar-nav mr-0 justify-content-end">
                             <li className="nav-item active pt-2">
-                                <a className="nav-link" href="#">LOGGA IN</a>
+                                {this.props.auth.promptLogin && <Auth/>}
+                                {!this.props.auth.promptLogin && <a href="">MINA SIDOR</a>}
                             </li>
                         </ul>
                     </div>

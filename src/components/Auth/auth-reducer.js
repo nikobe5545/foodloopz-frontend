@@ -7,9 +7,10 @@ export const AuthActions = {
 
 export const authReducer = (state = {
     isFetching: false,
-    hasLoadedSessionStorage: false,
     promptLogin: true,
-    email: ''
+    email: null,
+    roles: [],
+    organization: null
 }, action) => {
     switch (action.type) {
         case AuthActions.LOGIN_REQUEST:

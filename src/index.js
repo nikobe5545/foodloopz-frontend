@@ -14,7 +14,7 @@ import CreateUpdate from "./components/Ad/CreateUpdate";
 import {topAdsReducer} from "./components/Home/topads-reducer";
 import {adReducer} from "./components/Ad/ad-reducer";
 import {createOnMessageAction} from "./common/websocketActions";
-import {authReducer} from "./components/Header/auth-reducer";
+import {authReducer} from "./components/Auth/auth-reducer";
 import thunk from "redux-thunk";
 import {adCategoriesReducer} from "./common/ad-category-reducer";
 import {adCertificationReducer} from "./common/ad-certification-reducer";
@@ -35,11 +35,7 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     {},
-    applyMiddleware(thunk,
-        createWebsocketMiddleware({
-        onMessageAction: createOnMessageAction,
-        codec: JSONCodec
-    }))
+    applyMiddleware(thunk)
 );
 
 render(
