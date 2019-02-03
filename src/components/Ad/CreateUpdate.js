@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import AdForm from "./AdForm";
 import Header from "../Header/Header"
+import Footer from "../Footer/Footer"
 
 import {connect} from 'react-redux';
 import {fetchAd, postAd} from "./ad-actions";
@@ -51,6 +52,7 @@ export default connect(
                         {this.props.ad.item && <AdForm/>}
                     </div>
                 </div>
+                <Footer/>
             </React.Fragment>
         );
     }
