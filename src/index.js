@@ -19,6 +19,7 @@ import thunk from "redux-thunk";
 import {adCategoriesReducer} from "./common/ad-category-reducer";
 import {adCertificationReducer} from "./common/ad-certification-reducer";
 import {addCSRFHeader} from "./utils/rest";
+import {checkLoginStatus} from "./components/Auth/auth-actions";
 
 $.ajaxSetup({
     beforeSend: addCSRFHeader
@@ -34,9 +35,10 @@ const rootReducer = combineReducers({
 
 const store = createStore(
     rootReducer,
-    {},
     applyMiddleware(thunk)
 );
+
+store.dispatch(checkLoginStatus());
 
 render(
     <Provider store={store}>

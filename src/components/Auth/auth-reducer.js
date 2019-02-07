@@ -1,4 +1,6 @@
 export const AuthActions = {
+    LOGIN_CHECK: 'LOGIN_CHECK',
+    LOGIN_CHECK_SUCCESS: 'LOGIN_CHECK_SUCCESS',
     LOGIN_REQUEST: 'LOGIN',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
@@ -7,7 +9,6 @@ export const AuthActions = {
 
 export const authReducer = (state = {
     isFetching: false,
-    promptLogin: true,
     email: null,
     roles: [],
     organization: null
@@ -18,12 +19,17 @@ export const authReducer = (state = {
                 ...state,
                 isFetching: true
             };
+        case AuthActions.LOGIN_CHECK_SUCCESS:
+            return {
+                ...state,
+                ...action.payload,
+                isFetching: false
+            };
         case AuthActions.LOGIN_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
-                isFetching: false,
-                promptLogin: false
+                isFetching: false
             };
         case AuthActions.LOGIN_FAILURE:
             return {

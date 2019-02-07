@@ -78,8 +78,8 @@ export default connect(
                         </ul>
                         <ul className="navbar-nav mr-0 justify-content-end">
                             <li className="nav-item active pt-2">
-                                {this.props.auth.promptLogin && <Auth/>}
-                                {!this.props.auth.promptLogin && <a href="">MINA SIDOR</a>}
+                                {!this.props.auth.email && <Auth/>}
+                                {this.props.auth.email && <a href="">MINA SIDOR</a>}
                             </li>
                         </ul>
                     </div>

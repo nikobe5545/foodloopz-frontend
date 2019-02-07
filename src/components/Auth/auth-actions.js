@@ -1,4 +1,4 @@
-import {AuthActions} from "./auth-reducer";
+import {AuthActions, authReducer} from "./auth-reducer";
 import $ from "jquery";
 
 export function loginUser(creds) {
@@ -23,6 +23,32 @@ export function loginUser(creds) {
                     dispatch(loginError('User not authenticated'))
                 } else {
                     dispatch(loginError('Some error'))
+                }
+            });
+    }
+}
+
+export function checkLoginStatus() {
+    return (dispatch, getStore) => {
+        dispatch(requestLogin());
+        $.ajax({
+            url: '/marketplace/api/rest/auth/check',
+            type: 'GET',
+            dataType: 'json'
+        })
+            .done((payload) => {
+                console.log('LOGIN_SUCCESS', payload);
+                dispatch({
+                        type: AuthActions.LOGIN_CHECK_SUCCESS,
+                        payload
+                    }
+                );
+            })
+            .fail((xhr, status, error) => {
+                if (error.response && error.response.status === 403) {
+                    dispatch(loginError('User not authenticated'));
+                } else {
+                    dispatch(loginError('Some error'));
                 }
             });
     }

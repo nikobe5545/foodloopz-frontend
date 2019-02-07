@@ -72,7 +72,7 @@ export default connect(
                             <input type="password"
                                    className="form-control"
                                    id="password"
-                                   placeholder="Lösenord"
+                                   placeholder="AaBb1234"
                                    onInput={this.handleInputPassword}
                             />
                         </div>
