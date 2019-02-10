@@ -43,7 +43,7 @@ export default connect(
             <React.Fragment>
                 <Header/>
                 <BreadcrumbArea heading="Skapa en loop" text="Sälj ditt överskott idag"/>
-                <div className="container-fluid pl-0 pr-0 bg-white w-75 px-md-3 py-md-3">
+                <div className="container-fluid pl-0 pr-0 bg-white w-100 px-md-3 py-md-3">
                     {this.props.ad.isFetching &&
                     <div className="spinner-grow" role="status">
                         <span className="sr-only">Loading...</span>
