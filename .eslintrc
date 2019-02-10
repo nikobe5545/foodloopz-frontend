@@ -1,0 +1,11 @@
+{
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "extends": ["standard", "standard-react"],
+    "rules": {
+      "react/prop-types": 0
+    }
+  }
+  

@@ -1,9 +1,9 @@
 export default class PlainTextCodec {
-    static encode(message) {
-        return message
-    }
+  static encode (message) {
+    return message
+  }
 
-    static decode(message) {
-        return message
-    }
+  static decode (message) {
+    return message
+  }
 }

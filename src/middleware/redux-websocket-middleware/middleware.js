@@ -2,40 +2,40 @@ import {isIncomingSocketMessage, isOutgoingSocketMessage} from './utils'
 
 import {ConnectionManager} from './lib'
 
-export default function createWebsocketMiddleware(
-    options = {},
-    reconnectCallback = null
+export default function createWebsocketMiddleware (
+  options = {},
+  reconnectCallback = null
 ) {
-    return store => {
-        const connections = new ConnectionManager(store, options)
-        return next => action => {
-            if (!isOutgoingSocketMessage(action) || isIncomingSocketMessage(action)) {
-                return next(action)
-            }
+  return store => {
+    const connections = new ConnectionManager(store, options)
+    return next => action => {
+      if (!isOutgoingSocketMessage(action) || isIncomingSocketMessage(action)) {
+        return next(action)
+      }
 
-            const endpoint =
+      const endpoint =
                 action.meta.socket === true
-                    ? options.defaultEndpoint
-                    : action.meta.socket
+                  ? options.defaultEndpoint
+                  : action.meta.socket
 
-            if (typeof endpoint === 'string') {
-                const connection = connections.has(endpoint)
-                    ? connections.get(endpoint)
-                    : connections.add(endpoint, reconnectCallback)
+      if (typeof endpoint === 'string') {
+        const connection = connections.has(endpoint)
+          ? connections.get(endpoint)
+          : connections.add(endpoint, reconnectCallback)
 
-                connection.send(action.payload, action.meta.enqueueOnce)
-            } else {
-                console.warn(
-                    `
+        connection.send(action.payload, action.meta.enqueueOnce)
+      } else {
+        console.warn(
+          `
             You provided socket: ${endpoint},
             which is not valid because:
             Either its \`true\` and you forgot to setup
             default endpoint, or its not a string and is some
             invalid value. This action will be ignored:
         `,
-                    action
-                )
-            }
-        }
+          action
+        )
+      }
     }
+  }
 }

@@ -1,18 +1,18 @@
 export const translationsObject = {
-    sv: {
-        global: {
-            header: {
+  sv: {
+    global: {
+      header: {
 
-            },
-            navigation: {
+      },
+      navigation: {
 
-            },
-            footer: {
+      },
+      footer: {
 
-            }
-        }
-    },
-    en: {
-
+      }
     }
-};
+  },
+  en: {
+
+  }
+}
