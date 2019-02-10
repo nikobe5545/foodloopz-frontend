@@ -39,7 +39,8 @@ export const translationsObject = {
         },
         org_no: {
           label: 'Organisationsnummer',
-          hint: '000000-0000'
+          hint: '000000-0000',
+          error: 'Organisationsnumret är ogiltigt'
         },
         contact_person_name: {
           label: 'Kontaktperson namn',
@@ -47,7 +48,8 @@ export const translationsObject = {
         },
         email: {
           label: 'E-post',
-          hint: 'namn@domain.com'
+          hint: 'namn@domain.com',
+          error: 'E-postadressen är ogiltig'
         },
         phone: {
           label: 'Telefonnummer',

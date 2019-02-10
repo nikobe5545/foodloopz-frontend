@@ -23,11 +23,19 @@ export default connect(
 )(class Create extends Component {
   constructor (props) {
     super(props)
-    this.state = {...props.organization}
+    this.state = {
+      ...props.organization,
+      organizationNumberIsValid: true,
+      emailIsValid: true
+    }
     this.handleInputContactPerson = this.handleInputContactPerson.bind(this)
     this.handleInputEmail = this.handleInputEmail.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
+    this.emailIsValid = this.emailIsValid.bind(this)
     this.handleInputOrganizationName = this.handleInputOrganizationName.bind(this)
     this.handleInputOrganizationNumber = this.handleInputOrganizationNumber.bind(this)
+    this.validateOrganizationNumber = this.validateOrganizationNumber.bind(this)
+    this.organizationNumberIsValid = this.organizationNumberIsValid.bind(this)
     this.handleInputPassword = this.handleInputPassword.bind(this)
     this.handleInputVerifyPassword = this.handleInputVerifyPassword.bind(this)
     this.handleInputPhoneNumber = this.handleInputPhoneNumber.bind(this)
@@ -38,8 +46,40 @@ export default connect(
     this.setState({organizationName: event.target.value})
   }
 
+  validateOrganizationNumber () {
+    this.setState({organizationNumberIsValid: this.organizationNumberIsValid()})
+  }
+
+  /**
+   * Allowing personnummer (social security number) as well as organization numbers here
+   * @returns {boolean}
+   */
+  organizationNumberIsValid () {
+    let organizationNumber = this.state.organizationNumber
+    if (!organizationNumber) {
+      return false
+    }
+    // Clean away all but numbers
+    organizationNumber = organizationNumber.replace(/[^0-9]/g, '')
+    let match = /^([1,2][0-9])?([1-9]{2}[0-9]{8})$/.exec(organizationNumber)
+    if (!match) {
+      return false
+    }
+    const ssn = match[2].split('').reverse()
+    // Luhn checksum digit
+    const sum = ssn
+      .map(function (n) {
+        return Number(n)
+      })
+      .reduce(function (previous, current, index) {
+        if (index % 2) current *= 2
+        if (current > 9) current -= 9
+        return previous + current
+      })
+    return sum % 10 === 0
+  }
+
   handleInputOrganizationNumber (event) {
-    // TODO validate org. no.
     this.setState({organizationNumber: event.target.value})
   }
 
@@ -47,11 +87,22 @@ export default connect(
     this.setState({contactPerson: event.target.value})
   }
 
+  validateEmail () {
+    this.setState({emailIsValid: this.emailIsValid()})
+  }
+
+  emailIsValid () {
+    // eslint-disable-next-line no-useless-escape
+    return !!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.exec(this.state.email)
+  }
+
   handleInputEmail (event) {
+    // TODO validate email
     this.setState({email: event.target.value})
   }
 
   handleInputPhoneNumber (event) {
+    // TODO validate phone number
     this.setState({phoneNumber: event.target.value})
   }
 
@@ -60,6 +111,7 @@ export default connect(
   }
 
   handleInputVerifyPassword (event) {
+    // TODO validate that passwords match
     this.setState({verifyPassword: event.target.value})
   }
 
@@ -79,49 +131,65 @@ export default connect(
               <p className='bread'>{I18n.t('register.info_text_2')}</p>
               <hr />
               <form onSubmit={this.handleSubmit}>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='organizationName'>{I18n.t('register.form.name.label')}</label>
                   <input type='text' className='form-control' id='organizationName' aria-describedby='organizationNameHelp'
                     placeholder={I18n.t('register.form.name.hint')} onInput={this.handleInputOrganizationName}
                     value={this.state.organizationName} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='organizationNumber'>{I18n.t('register.form.org_no.label')}</label>
-                  <input type='text' className='form-control' id='organizationNumber' aria-describedby='organizationNumberHelp'
+                  <input type='text'
+                    className={'form-control' + (this.state.organizationNumberIsValid ? '' : ' is-invalid')}
+                    id='organizationNumber' aria-describedby='organizationNumberHelp'
                     placeholder={I18n.t('register.form.org_no.hint')}
-                    onInput={this.handleInputOrganizationNumber} value={this.state.organizationNumber} />
+                    onInput={this.handleInputOrganizationNumber}
+                    onBlur={this.validateOrganizationNumber}
+                    value={this.state.organizationNumber} />
+                  {
+                    !this.state.organizationNumberIsValid &&
+                    <div className='invalid-feedback'>{I18n.t('register.form.org_no.error')}</div>
+                  }
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='contactPerson'>{I18n.t('register.form.contact_person_name.label')}</label>
                   <input type='text' className='form-control' id='contactPerson' aria-describedby='contactPersonHelp'
                     placeholder={I18n.t('register.form.contact_person_name.hint')}
                     onInput={this.handleInputContactPerson} value={this.state.contactPerson} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='email'>{I18n.t('register.form.email.label')}</label>
-                  <input type='text' className='form-control' id='email' aria-describedby='emailHelp'
+                  <input type='text'
+                    className={'form-control' + (this.state.emailIsValid ? '' : ' is-invalid')}
+                    id='email' aria-describedby='emailHelp'
                     placeholder={I18n.t('register.form.email.hint')}
-                    onInput={this.handleInputEmail} value={this.state.email} />
+                    onInput={this.handleInputEmail}
+                    onBlur={this.validateEmail}
+                    value={this.state.email} />
+                  {
+                    !this.state.emailIsValid &&
+                    <div className='invalid-feedback'>{I18n.t('register.form.email.error')}</div>
+                  }
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='phoneNumber'>{I18n.t('register.form.phone.label')}</label>
                   <input type='text' className='form-control' id='phoneNumber' aria-describedby='phoneNumberHelp'
                     placeholder={I18n.t('register.form.phone.hint')}
                     onInput={this.handleInputPhoneNumber} value={this.state.phoneNumber} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='description'>{I18n.t('register.form.password.label')}</label>
                   <input type='password' className='form-control' id='text'
                     placeholder={I18n.t('register.form.password.hint')}
                     onInput={this.handleInputPassword} value={this.state.password} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group p-2'>
                   <label htmlFor='description'>{I18n.t('register.form.password.verify')}</label>
                   <input type='password' className='form-control' id='text'
                     placeholder={I18n.t('register.form.password.hint')}
                     onInput={this.handleInputVerifyPassword} value={this.state.verifyPassword} />
                 </div>
-                <div className='form-check pb-3'>
+                <div className='form-check pt-2 pb-5'>
                   <input className='form-check-input' type='checkbox' value='acceptTerms' id='termsAndConditions' />
                   <label className='form-check-label' htmlFor='termsAndConditions'>
                     {I18n.t('register.form.agreement.text')} <a href='/terms'>{I18n.t('register.form.agreement.link_text')}</a>
