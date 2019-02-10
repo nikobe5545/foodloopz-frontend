@@ -1,12 +1,12 @@
-import {AdCategoryActions} from './ad-category-actions'
+import {LoopCategoryActions} from './loop-category-actions'
 
-export const adCategoriesReducer = (state = {
+export const loopCategoriesReducer = (state = {
   isFetching: false,
   didInvalidate: true,
   items: null
 }, action) => {
   switch (action.type) {
-    case AdCategoryActions.FETCH_AD_CATEGORIES_SUCCESS:
+    case LoopCategoryActions.FETCH_LOOP_CATEGORIES_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -14,7 +14,7 @@ export const adCategoriesReducer = (state = {
         lastUpdated: new Date().getTime(),
         items: action.data
       }
-    case AdCategoryActions.FETCH_AD_CATEGORIES_FAIL:
+    case LoopCategoryActions.FETCH_LOOP_CATEGORIES_FAIL:
       return {
         ...state,
         isFetching: false,
@@ -22,7 +22,7 @@ export const adCategoriesReducer = (state = {
         items: null,
         errorMessage: action.errorMessage
       }
-    case AdCategoryActions.FETCH_AD_CATEGORIES:
+    case LoopCategoryActions.FETCH_LOOP_CATEGORIES:
       return {
         ...state,
         isFetching: true,

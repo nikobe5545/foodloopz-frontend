@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <footer>
-      <nav className='navbar navbar-expand-lg navbar-dark bg-secondary'>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-footer'>
         <ul className='navbar-nav mr-auto'>
           <li className='nav-item active pr-3'>
             <a className='navbar-brand' href='/'><img
@@ -50,7 +50,7 @@ const Footer = () => {
           </li>
         </ul>
       </nav>
-      <div className='container-fluid bg-secondary ml-0 mr-0'>
+      <div className='container-fluid bg-footer ml-0 mr-0'>
         <div className='row justify-content-between'>
           <div className='col-4'>
             <p className='font-trebuchet text-white'>&copy; Foodloopz Sweden AB 2019</p>

@@ -1,7 +1,7 @@
 import React from 'react'
 import ImageUploadWidget from './ImageUploadWidget'
 import {connect} from 'react-redux'
-import {postAd} from './ad-actions'
+import {postLoop} from './loop-actions'
 import * as cloudinary from 'cloudinary-core'
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  postAd
+  postAd: postLoop
 }
 
 export default connect(
@@ -22,7 +22,6 @@ export default connect(
 )(class AdForm extends React.Component {
   constructor (props) {
     super(props)
-    console.log('AdForm this.props', this.props)
     this.state = {
       image: props.ad.image,
       product: props.ad.product,
@@ -122,7 +121,6 @@ export default connect(
     const url = cl.url(this.state.image, {
       transformation: 'loop-details'
     })
-    console.log('URL', url)
     return url
   }
 

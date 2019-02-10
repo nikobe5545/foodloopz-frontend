@@ -1,6 +1,10 @@
 .bg-1 {
     min-height: 100%;
-    background: linear-gradient(0deg,rgba(0,0,0,0.31),rgba(0,0,0,0.31)),url("../images/foodloopz-background.webp");
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.31), rgba(0, 0, 0, 0.31)), url("../images/foodloopz-background.webp");
+}
+
+.bg-footer {
+    background-color: #6A6A7F;
 }
 
 .overlay {
@@ -22,6 +26,24 @@
     src: url('../fonts/trebuc.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Verdana';
+    src: url('../fonts/verdana.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Bahnschrift';
+    src: url('../fonts/bahnschrift.ttf') format('truetype');
+}
+
+.header {
+    font-family: 'Bahnschrift', sans-serif;
+}
+
+.bread {
+    font-family: 'Verdana', sans-serif;
+}
+
 .font-trebuchet {
     font-family: 'Trebuchet', sans-serif;
 }
@@ -33,4 +55,8 @@ li.nav-item a {
 
 .btn {
     font-family: 'Trebuchet', sans-serif;
+}
+
+.text-dark-grey {
+    color: #555555;
 }

@@ -50,7 +50,7 @@ export default connect(
   render () {
     return (
       <header>
-        <nav className='navbar navbar-expand-lg navbar-dark bg-transparent'>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-transparent pb-5'>
           <a className='navbar-brand' href='/'><img
             src='/images/foodloopz_logo.webp'
             alt='FOODLOOPZ' /></a>

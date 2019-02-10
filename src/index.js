@@ -7,19 +7,21 @@ import {render} from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 import {Provider} from 'react-redux'
 import {applyMiddleware, combineReducers, createStore} from 'redux'
-import createWebsocketMiddleware, {JSONCodec} from './middleware/redux-websocket-middleware'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Home from './components/Home/Home'
-import CreateUpdate from './components/Ad/CreateUpdate'
+import CreateUpdateLoop from './components/Loop/CreateUpdate'
+import CreateUpdateOrganization from './components/Organization/CreateUpdate'
 import {topAdsReducer} from './components/Home/topads-reducer'
-import {adReducer} from './components/Ad/ad-reducer'
-import {createOnMessageAction} from './common/websocketActions'
+import {loopReducer} from './components/Loop/loop-reducer'
 import {authReducer} from './components/Auth/auth-reducer'
 import thunk from 'redux-thunk'
-import {adCategoriesReducer} from './common/ad-category-reducer'
-import {adCertificationReducer} from './common/ad-certification-reducer'
+import {loopCategoriesReducer} from './common/loop-category-reducer'
+import {loopCertificationReducer} from './common/loop-certification-reducer'
 import {addCSRFHeader} from './utils/rest'
 import {checkLoginStatus} from './components/Auth/auth-actions'
+import {i18nReducer, loadTranslations, setLocale, syncTranslationWithStore} from 'react-redux-i18n'
+import {translationsObject} from './utils/i18n'
+import {organizationReducer} from './components/Organization/organization-reducer'
 
 $.ajaxSetup({
   beforeSend: addCSRFHeader
@@ -27,10 +29,12 @@ $.ajaxSetup({
 
 const rootReducer = combineReducers({
   home: topAdsReducer,
-  ad: adReducer,
+  ad: loopReducer,
   auth: authReducer,
-  ad_categories: adCategoriesReducer,
-  ad_certifications: adCertificationReducer
+  ad_categories: loopCategoriesReducer,
+  ad_certifications: loopCertificationReducer,
+  i18n: i18nReducer,
+  organization: organizationReducer
 })
 
 const store = createStore(
@@ -38,14 +42,18 @@ const store = createStore(
   applyMiddleware(thunk)
 )
 
+syncTranslationWithStore(store)
+store.dispatch(loadTranslations(translationsObject))
+store.dispatch(setLocale('se'))
 store.dispatch(checkLoginStatus())
 
 render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path='/ad/view/:id?' component={CreateUpdate} />
-        <Route path='/ad/edit/:id?' component={CreateUpdate} />
+        <Route path='/loop/view/:id?' component={CreateUpdateLoop} />
+        <Route path='/loop/edit/:id?' component={CreateUpdateLoop} />
+        <Route path='/organization/edit/:id?' component={CreateUpdateOrganization} />
         <Route path='/' component={Home} />
       </Switch>
     </Router>

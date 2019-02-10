@@ -1,12 +1,12 @@
-import {AdCertificationActions} from './ad-certification-actions'
+import {LoopCertificationActions} from './loop-certification-actions'
 
-export const adCertificationReducer = (state = {
+export const loopCertificationReducer = (state = {
   isFetching: false,
   didInvalidate: true,
   items: null
 }, action) => {
   switch (action.type) {
-    case AdCertificationActions.FETCH_AD_CERTIFICATIONS_SUCCESS:
+    case LoopCertificationActions.FETCH_LOOP_CERTIFICATIONS_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -14,7 +14,7 @@ export const adCertificationReducer = (state = {
         lastUpdated: new Date().getTime(),
         items: action.data
       }
-    case AdCertificationActions.FETCH_AD_CERTIFICATIONS_FAIL:
+    case LoopCertificationActions.FETCH_LOOP_CERTIFICATIONS_FAIL:
       return {
         ...state,
         isFetching: false,
@@ -22,7 +22,7 @@ export const adCertificationReducer = (state = {
         items: null,
         errorMessage: action.errorMessage
       }
-    case AdCertificationActions.FETCH_AD_CERTIFICATIONS:
+    case LoopCertificationActions.FETCH_LOOP_CERTIFICATIONS:
       return {
         ...state,
         isFetching: true,

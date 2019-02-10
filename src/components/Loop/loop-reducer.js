@@ -1,13 +1,13 @@
-import {AdActions} from './ad-actions'
+import {LoopActions} from './loop-actions'
 
-export const adReducer = (state = {
+export const loopReducer = (state = {
   isFetching: false,
   isPosting: false,
   didInvalidate: true,
   item: null
 }, action) => {
   switch (action.type) {
-    case AdActions.FETCH_AD_SUCCESS:
+    case LoopActions.FETCH_LOOP_SUCCESS:
       console.log('Received data', action)
       return {
         ...state,
@@ -16,7 +16,7 @@ export const adReducer = (state = {
         lastUpdated: new Date().getTime(),
         item: action.data
       }
-    case AdActions.FETCH_AD_FAIL:
+    case LoopActions.FETCH_LOOP_FAIL:
       console.log('Fetch ad failed. Data = ', action)
       return {
         ...state,
@@ -25,28 +25,28 @@ export const adReducer = (state = {
         item: null,
         errorMessage: action.errorMessage
       }
-    case AdActions.FETCH_AD:
+    case LoopActions.FETCH_LOOP:
       return {
         ...state,
         isFetching: true,
         didInvalidate: false,
         item: null
       }
-    case AdActions.POST_AD:
+    case LoopActions.POST_LOOP:
       return {
         ...state,
         isPosting: true,
         didInvalidate: false,
         item: action.data
       }
-    case AdActions.POST_AD_SUCCESS:
+    case LoopActions.POST_LOOP_SUCCESS:
       return {
         ...state,
         isPosting: false,
         didInvalidate: false,
         item: action.data
       }
-    case AdActions.POST_AD_FAIL:
+    case LoopActions.POST_LOOP_FAIL:
       return {
         ...state,
         isPosting: false,

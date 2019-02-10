@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import AdForm from './AdForm'
+import AdForm from './LoopForm'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 
 import {connect} from 'react-redux'
-import {fetchAd, postAd} from './ad-actions'
-import {fetchAdCategories} from '../../common/ad-category-actions'
-import {fetchAdCertifications} from '../../common/ad-certification-actions'
+import {fetchLoop, postLoop} from './loop-actions'
+import {fetchLoopCategories} from '../../common/loop-category-actions'
+import {fetchLoopCertifications} from '../../common/loop-certification-actions'
 import BreadcrumbArea from '../Header/BreadcrumbArea'
 
 const mapStateToProps = (state, ownProps) => {
@@ -19,10 +19,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  fetchAd,
-  fetchAdCategories,
-  fetchAdCertifications,
-  postAd
+  fetchAd: fetchLoop,
+  fetchAdCategories: fetchLoopCategories,
+  fetchAdCertifications: fetchLoopCertifications,
+  postAd: postLoop
 }
 
 export default connect(
