@@ -58,7 +58,9 @@ export const translationsObject = {
         password: {
           label: 'Välj lösenord',
           verify: 'Verifiera lösenord',
-          hint: '********'
+          hint: '********',
+          matchError: 'Lösenorden stämmer inte överens',
+          invalidPassword: 'Lösenordet måste bestå av minst en stor bokstav och en siffra samt vara minst åtta tecken långt'
         },
         agreement: {
           label: 'Avtal*',

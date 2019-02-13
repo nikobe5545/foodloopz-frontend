@@ -26,7 +26,9 @@ export default connect(
     this.state = {
       ...props.organization,
       organizationNumberIsValid: true,
-      emailIsValid: true
+      emailIsValid: true,
+      passwordsAreMatching: true,
+      passwordIsValid: true
     }
     this.handleInputContactPerson = this.handleInputContactPerson.bind(this)
     this.handleInputEmail = this.handleInputEmail.bind(this)
@@ -38,6 +40,10 @@ export default connect(
     this.organizationNumberIsValid = this.organizationNumberIsValid.bind(this)
     this.handleInputPassword = this.handleInputPassword.bind(this)
     this.handleInputVerifyPassword = this.handleInputVerifyPassword.bind(this)
+    this.validatePasswordsMatching = this.validatePasswordsMatching.bind(this)
+    this.passwordsAreMatching = this.passwordsAreMatching.bind(this)
+    this.validatePassword = this.validatePassword.bind(this)
+    this.passwordIsValid = this.passwordIsValid.bind(this)
     this.handleInputPhoneNumber = this.handleInputPhoneNumber.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -111,8 +117,26 @@ export default connect(
   }
 
   handleInputVerifyPassword (event) {
-    // TODO validate that passwords match
     this.setState({verifyPassword: event.target.value})
+  }
+
+  validatePasswordsMatching () {
+    this.setState({passwordsAreMatching: this.passwordsAreMatching()})
+  }
+
+  passwordsAreMatching () {
+    return this.state.password &&
+        this.state.verifyPassword &&
+        this.state.password === this.state.verifyPassword &&
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.exec(this.state.password)
+  }
+
+  validatePassword () {
+    this.setState({passwordIsValid: this.passwordIsValid()})
+  }
+
+  passwordIsValid () {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.exec(this.state.password)
   }
 
   handleSubmit (event) {
@@ -179,15 +203,31 @@ export default connect(
                 </div>
                 <div className='form-group p-2'>
                   <label htmlFor='description'>{I18n.t('register.form.password.label')}</label>
-                  <input type='password' className='form-control' id='text'
+                  <input type='password'
+                    className={'form-control' + (this.state.passwordIsValid ? '' : ' is-invalid')}
+                    id='password'
                     placeholder={I18n.t('register.form.password.hint')}
-                    onInput={this.handleInputPassword} value={this.state.password} />
+                    onInput={this.handleInputPassword}
+                    onBlur={this.validatePassword}
+                    value={this.state.password} />
+                  {
+                    !this.state.passwordIsValid &&
+                    <div className='invalid-feedback'>{I18n.t('register.form.password.invalidPassword')}</div>
+                  }
                 </div>
                 <div className='form-group p-2'>
                   <label htmlFor='description'>{I18n.t('register.form.password.verify')}</label>
-                  <input type='password' className='form-control' id='text'
+                  <input type='password'
+                    className={'form-control' + (this.state.passwordsAreMatching ? '' : ' is-invalid')}
+                    id='verifyPassword'
                     placeholder={I18n.t('register.form.password.hint')}
-                    onInput={this.handleInputVerifyPassword} value={this.state.verifyPassword} />
+                    onInput={this.handleInputVerifyPassword}
+                    onBlur={this.validatePasswordsMatching}
+                    value={this.state.verifyPassword} />
+                  {
+                    !this.state.passwordsAreMatching &&
+                    <div className='invalid-feedback'>{I18n.t('register.form.password.matchError')}</div>
+                  }
                 </div>
                 <div className='form-check pt-2 pb-5'>
                   <input className='form-check-input' type='checkbox' value='acceptTerms' id='termsAndConditions' />
