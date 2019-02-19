@@ -46,6 +46,7 @@ export default connect(
     this.passwordIsValid = this.passwordIsValid.bind(this)
     this.handleInputPhoneNumber = this.handleInputPhoneNumber.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.formIsValid = this.formIsValid.bind(this)
   }
 
   handleInputOrganizationName (event) {
@@ -103,7 +104,6 @@ export default connect(
   }
 
   handleInputEmail (event) {
-    // TODO validate email
     this.setState({email: event.target.value})
   }
 
@@ -127,8 +127,7 @@ export default connect(
   passwordsAreMatching () {
     return this.state.password &&
         this.state.verifyPassword &&
-        this.state.password === this.state.verifyPassword &&
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.exec(this.state.password)
+        this.state.password === this.state.verifyPassword
   }
 
   validatePassword () {
@@ -139,8 +138,35 @@ export default connect(
     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.exec(this.state.password)
   }
 
-  handleSubmit (event) {
+  formIsValid () {
+    return this.passwordIsValid() &&
+          this.passwordsAreMatching() &&
+          this.emailIsValid() &&
+          this.organizationNumberIsValid()
+  }
 
+  handleSubmit (event) {
+    event.preventDefault()
+    if (!this.formIsValid()) {
+      this.validatePassword()
+      this.validateOrganizationNumber()
+      this.validateEmail()
+      this.validatePasswordsMatching()
+      return false
+    }
+    this.props.postOrganization({
+      user: {
+        name: this.state.contactPerson,
+        email: this.state.email,
+        password: this.state.password,
+        verifyPassword: this.state.verifyPassword,
+        phoneNumber: this.state.phoneNumber
+      },
+      organization: {
+        name: this.state.organizationName,
+        organizationNumber: this.state.organizationNumber
+      }
+    })
   }
 
   render () {

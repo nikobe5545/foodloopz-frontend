@@ -47,22 +47,19 @@ function requestOrganization () {
 export function postOrganization (data) {
   return (dispatch, getStore) => {
     console.log('Post organization', data)
-    dispatch(requestPostAd(data))
-    const method = data.id ? 'PATCH' : 'POST'
-    let url = '/marketplace/api/rest/organizations/'
-    if (data.id) {
-      url = url + data.id + '/'
-    }
+    dispatch(requestPostOrganization(data))
+    let url = '/marketplace/api/rest/account/register'
     $.ajax({
       url: url,
-      type: method,
+      type: 'POST',
       dataType: 'json',
-      data
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data)
     })
       .done((response) => {
         console.log('Post organization success', response)
         dispatch({
-          type: OrganizationActions.FETCH_ORGANIZATION_SUCCESS,
+          type: OrganizationActions.POST_ORGANIZATION_SUCCESS,
           data: response
         }
         )
@@ -73,7 +70,7 @@ export function postOrganization (data) {
   }
 }
 
-function requestPostAd (data) {
+function requestPostOrganization (data) {
   return {
     type: OrganizationActions.POST_ORGANIZATION,
     data

@@ -57,7 +57,8 @@ export function postLoop (data) {
       url: url,
       type: method,
       dataType: 'json',
-      data
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data)
     })
       .done((response) => {
         console.log('Post loop success', response)
