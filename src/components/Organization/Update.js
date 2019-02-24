@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer'
 import {connect} from 'react-redux'
 import {fetchOrganization, postOrganization} from './organization-actions'
 import {I18n} from 'react-redux-i18n'
-import './create-update.css'
+import './organization.css'
 
 const mapStateToProps = (state) => {
   return {

@@ -10,7 +10,6 @@ import {applyMiddleware, combineReducers, createStore} from 'redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Home from './components/Home/Home'
 import CreateUpdateLoop from './components/Loop/CreateUpdate'
-import CreateUpdateOrganization from './components/Organization/CreateUpdate'
 import {topAdsReducer} from './components/Home/topads-reducer'
 import {loopReducer} from './components/Loop/loop-reducer'
 import {authReducer} from './components/Auth/auth-reducer'
@@ -22,6 +21,8 @@ import {checkLoginStatus} from './components/Auth/auth-actions'
 import {i18nReducer, loadTranslations, setLocale, syncTranslationWithStore} from 'react-redux-i18n'
 import {translationsObject} from './utils/i18n'
 import {organizationReducer} from './components/Organization/organization-reducer'
+import Register from './components/Register/Register'
+import {registrationReducer} from './components/Register/registration-reducer'
 
 $.ajaxSetup({
   beforeSend: addCSRFHeader
@@ -34,7 +35,8 @@ const rootReducer = combineReducers({
   ad_categories: loopCategoriesReducer,
   ad_certifications: loopCertificationReducer,
   i18n: i18nReducer,
-  organization: organizationReducer
+  organization: organizationReducer,
+  registration: registrationReducer
 })
 
 const store = createStore(
@@ -53,7 +55,7 @@ render(
       <Switch>
         <Route path='/loop/view/:id?' component={CreateUpdateLoop} />
         <Route path='/loop/edit/:id?' component={CreateUpdateLoop} />
-        <Route path='/organization/edit/:id?' component={CreateUpdateOrganization} />
+        <Route path='/organization/register/:id?' component={Register} />
         <Route path='/' component={Home} />
       </Switch>
     </Router>

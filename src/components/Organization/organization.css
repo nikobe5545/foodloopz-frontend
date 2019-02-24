@@ -1,0 +1,31 @@
+input[type] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+div.form-group label {
+    font-family: 'Verdana', sans-serif;
+}
+
+button.btn {
+    background-color: #26B6C1;
+}
+
+.appear {
+    opacity: 1;
+    transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -ms-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+}
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -ms-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+}

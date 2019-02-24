@@ -32,6 +32,9 @@ export const translationsObject = {
           'att vi kan erbjuda en säker och effektiv för företag och organisationer på era villkor.',
       info_text_2: 'Den första personen i ett företag som registerar konto hos oss bli så kallad Administratör. ' +
           'Fler användare kan läggas till senare.',
+      spinner: {
+        posting: 'Skickar uppgifter...'
+      },
       form: {
         name: {
           label: 'Företagsnamn/Organisation',
@@ -70,6 +73,14 @@ export const translationsObject = {
         submit: {
           label: 'REGISTRERA OSS'
         }
+      },
+      success: {
+        message: 'Tack %{name} för att du registrerat dig! Du kommer alldeles strax få ett epostmeddelande med en ' +
+            'länk för att bekräfta din epostadress. Länken är giltig i 24 timmar. När du klickat på länken kan vi ' +
+            'slutföra din registering.'
+      },
+      fail: {
+        message: 'Oops! Något gick fel! Hjälp oss genom att rapportera in detta: info(at)foodloopz.se'
       }
     }
   },
